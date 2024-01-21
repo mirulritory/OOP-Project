@@ -1,26 +1,35 @@
+package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.UserController;
+import model.user;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Register extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -55,9 +64,6 @@ public class Register extends JFrame {
 		textField = new JTextField();
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		
@@ -73,6 +79,39 @@ public class Register extends JFrame {
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Phone Number");
 		
 		JButton btnNewButton = new JButton("Sign Up");
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        // Create a user object
+		        user newUser = new user();
+		        
+		        // Set user properties from the text fields
+		        newUser.setName(textField.getText());
+		        newUser.setPassword(new String(passwordField.getPassword()));
+		        newUser.setEmail(textField_2.getText());
+		        newUser.setPhonenum(Integer.parseInt(textField_3.getText()));
+
+		        // Call insertUser method from UserController
+		        UserController userController = new UserController();
+		        try {
+		            int success = userController.insertUser(newUser);
+		            if (success > 0) {
+	                    // Display success message
+	                    JOptionPane.showMessageDialog(contentPane, "Account registered successfully!");
+	                    dispose();
+
+	                    // Open the login window
+	                    login loginFrame = new login();
+	                    loginFrame.setVisible(true);
+	                } else {
+	                    // Display failure message
+	                    JOptionPane.showMessageDialog(contentPane, "Account registration failed.", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+		        } catch (ClassNotFoundException | SQLException ex) {
+		            ex.printStackTrace();
+		        }
+		    }
+		});
+
 		
 		JLabel lblNewLabel_2 = new JLabel("Already Have an Account");
 		
@@ -84,32 +123,34 @@ public class Register extends JFrame {
 				dispose();
 			}
 		});
+		
+		passwordField = new JPasswordField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap(186, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 							.addGap(228))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(passwordField)
+								.addComponent(textField)
+								.addComponent(textField_2)
+								.addComponent(textField_3))
 							.addGap(242))))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(269)
 					.addComponent(btnNewButton)
-					.addContainerGap(281, Short.MAX_VALUE))
+					.addContainerGap(285, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(243)
 					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
@@ -117,7 +158,7 @@ public class Register extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(266)
 					.addComponent(btnNewButton_1)
-					.addContainerGap(270, Short.MAX_VALUE))
+					.addContainerGap(290, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -129,8 +170,8 @@ public class Register extends JFrame {
 						.addComponent(lblNewLabel_1))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1_1))
+						.addComponent(lblNewLabel_1_1)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -149,5 +190,4 @@ public class Register extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-
 }
