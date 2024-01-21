@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class Register extends JFrame {
 
@@ -45,7 +46,7 @@ public class Register extends JFrame {
 
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("REGISTER");
+		JLabel lblNewLabel = new JLabel("SIGN UP");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		textField = new JTextField();
@@ -67,6 +68,8 @@ public class Register extends JFrame {
 		JLabel lblNewLabel_1_1_1 = new JLabel("Email");
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Phone Number");
+		
+		JButton btnNewButton = new JButton("Sign Up");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -89,6 +92,10 @@ public class Register extends JFrame {
 								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(242))))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(269)
+					.addComponent(btnNewButton)
+					.addContainerGap(281, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -110,7 +117,9 @@ public class Register extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_1_1_1))
-					.addContainerGap(184, Short.MAX_VALUE))
+					.addGap(39)
+					.addComponent(btnNewButton)
+					.addContainerGap(124, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
