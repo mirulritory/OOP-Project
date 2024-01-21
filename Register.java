@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Register extends JFrame {
 
@@ -70,6 +71,10 @@ public class Register extends JFrame {
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Phone Number");
 		
 		JButton btnNewButton = new JButton("Sign Up");
+		
+		JLabel lblNewLabel_2 = new JLabel("Already Have an Account");
+		
+		JButton btnNewButton_1 = new JButton("Sign In");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -96,6 +101,14 @@ public class Register extends JFrame {
 					.addGap(269)
 					.addComponent(btnNewButton)
 					.addContainerGap(281, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(243)
+					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(254, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(266)
+					.addComponent(btnNewButton_1)
+					.addContainerGap(270, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -119,7 +132,11 @@ public class Register extends JFrame {
 						.addComponent(lblNewLabel_1_1_1_1))
 					.addGap(39)
 					.addComponent(btnNewButton)
-					.addContainerGap(124, Short.MAX_VALUE))
+					.addGap(27)
+					.addComponent(lblNewLabel_2)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton_1)
+					.addContainerGap(53, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
