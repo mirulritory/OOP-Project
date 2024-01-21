@@ -25,7 +25,7 @@ public class UserController {
         }
     }
     
-    public boolean loginUser(String name, char[] password) throws ClassNotFoundException, SQLException {
+    public boolean loginUser(String name, String password) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
         try (Connection conn = MyDatabase.doConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
