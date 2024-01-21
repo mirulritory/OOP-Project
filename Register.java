@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Register extends JFrame {
 
@@ -75,6 +77,13 @@ public class Register extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Already Have an Account");
 		
 		JButton btnNewButton_1 = new JButton("Sign In");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				login frame = new login();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
