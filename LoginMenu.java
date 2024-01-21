@@ -5,10 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.UserController;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -79,20 +84,38 @@ public class LoginMenu extends JFrame {
 		passwordField.setBounds(219, 181, 203, 32);
 		contentPane.add(passwordField);
 		
-		JButton btnNewButton = new JButton("Sign up");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNewSignUp = new JButton("Sign up");
+		btnNewSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Register frame = new Register();
 				//frame.setVisible(true);
 				//dispose();
 			}
 		});
-		btnNewButton.setBounds(256, 305, 89, 23);
-		contentPane.add(btnNewButton);
+		btnNewSignUp.setBounds(256, 305, 89, 23);
+		contentPane.add(btnNewSignUp);
 		
 		JButton btnSignIn = new JButton("Sign in");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String username = textField.getText();  // Use getText() instead of getName()
+		        String password = new String(passwordField.getPassword());
+
+		        UserController userController = new UserController();
+		        try {
+		            if (userController.loginUser(username, password)) {
+		                // Successful login, you can open the main application window or perform other actions
+		                // For now, let's just display a message
+		                JOptionPane.showMessageDialog(contentPane, "Login successful!");
+		            } else {
+		                // Failed login
+		                JOptionPane.showMessageDialog(contentPane, "Invalid credentials. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
+		        } catch (ClassNotFoundException | SQLException ex) {
+		            ex.printStackTrace();
+		            // Display exception message
+		            JOptionPane.showMessageDialog(contentPane, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		        }
 			}
 		});
 		btnSignIn.setBounds(256, 227, 89, 23);
