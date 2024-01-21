@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Database.MyDatabase;
-import model.user;
+import database.MyDatabase;
+import model.User;
 
 public class UserController {
 
-    public int insertUser(user user) throws ClassNotFoundException, SQLException {
-        String sql = "INSERT INTO user (name, password, email, phonenum) VALUES (?,?,?,?)";
+	public int insertUser(User user) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO user (name, password, email, phonenum, accountType) VALUES (?,?,?,?,?)";
 
         try (Connection conn = MyDatabase.doConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
@@ -20,6 +20,7 @@ public class UserController {
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setInt(4, user.getPhonenum());
+            preparedStatement.setString(5, user.getaccountType() != null ? user.getaccountType() : "Customer");
 
             return preparedStatement.executeUpdate();
         }
@@ -38,4 +39,44 @@ public class UserController {
             }
         }
     }
+
+    public String getAccountType(User user) throws ClassNotFoundException {
+        String sql = "SELECT accountType FROM user WHERE name = ?";
+        
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, user.getName());
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("accountType");
+                } else {
+                    return null;  // User not found
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public int insertStaff(User user) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO user (name, password, email, phonenum, accountType) VALUES (?,?,?,?,?)";
+
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setInt(4, user.getPhonenum());
+            preparedStatement.setString(5, user.getaccountType() != null ? user.getaccountType() : "Staff");
+
+            return preparedStatement.executeUpdate();
+        }
+    }
+
+	
+    
 }
