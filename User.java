@@ -1,12 +1,13 @@
 package model;
 
-public class user {
+public class User{
 
 	
 	private String name;
 	private String password;
 	private String email;
 	private int phonenum;
+	private String accountType;
 	
 	
 	
@@ -34,6 +35,11 @@ public class user {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getaccountType() {
+		return accountType;
+	}
+	public void setaccountType(String accountType) {
+		this.accountType = accountType;
+	}
 	
 }
