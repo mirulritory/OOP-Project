@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.UserController;
+import model.User;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -87,9 +88,9 @@ public class LoginMenu extends JFrame {
 		JButton btnNewSignUp = new JButton("Sign up");
 		btnNewSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Register frame = new Register();
-				//frame.setVisible(true);
-				//dispose();
+				Register frame = new Register();
+				frame.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewSignUp.setBounds(256, 305, 89, 23);
@@ -107,6 +108,23 @@ public class LoginMenu extends JFrame {
 		                // Successful login, you can open the main application window or perform other actions
 		                // For now, let's just display a message
 		                JOptionPane.showMessageDialog(contentPane, "Login successful!");
+		                User loggedInUser = new User();
+	                    loggedInUser.setName(username);
+
+	                    // Check the account type
+	                    String accountType = userController.getAccountType(loggedInUser);
+	                    System.out.println(userController.getAccountType(loggedInUser));
+
+	                    if ("Customer".equals(accountType)) {
+	                        Register frame = new Register();
+	                        frame.setVisible(true);
+	                        dispose();
+
+	                    } else {
+	                        StaffMenu frame = new StaffMenu();
+	                        frame.setVisible(true);
+	                        dispose();
+	                    }
 		            } else {
 		                // Failed login
 		                JOptionPane.showMessageDialog(contentPane, "Invalid credentials. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
