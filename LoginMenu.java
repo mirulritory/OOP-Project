@@ -5,32 +5,24 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.mysql.jdbc.PreparedStatement;
-
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 
-public class UserView extends JFrame {
+public class LoginMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField name;
-	private JPasswordField password;
+	private JTextField textField;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -39,7 +31,7 @@ public class UserView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserView frame = new UserView();
+					LoginMenu frame = new LoginMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +43,7 @@ public class UserView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserView() {
+	public LoginMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 569, 402);
 		contentPane = new JPanel();
@@ -79,18 +71,22 @@ public class UserView extends JFrame {
 		lblPassword.setBounds(92, 169, 102, 36);
 		contentPane.add(lblPassword);
 		
-		name = new JTextField();
-		name.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		name.setBounds(219, 128, 203, 32);
-		contentPane.add(name);
-		name.setColumns(10);
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField.setBounds(219, 128, 203, 32);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(219, 181, 203, 32);
+		contentPane.add(passwordField);
 		
 		JButton btnNewButton = new JButton("Sign up");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tests frame = new tests();
-				frame.setVisible(true);
-				dispose();
+				//Register frame = new Register();
+				//frame.setVisible(true);
+				//dispose();
 			}
 		});
 		btnNewButton.setBounds(256, 305, 89, 23);
@@ -109,15 +105,11 @@ public class UserView extends JFrame {
 		lblDontHaveAn.setBounds(219, 272, 183, 36);
 		contentPane.add(lblDontHaveAn);
 		
-		JPasswordField password = new JPasswordField();
-		password.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		password.setBounds(219, 166, 203, 32);
-		contentPane.add(password);
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setForeground(new Color(0, 0, 0));
+		lblBackground.setVerticalAlignment(SwingConstants.TOP);
+		lblBackground.setBounds(0, 0, 555, 365);
+		contentPane.add(lblBackground);
 		
-		JLabel lblBackground_1 = new JLabel("New label");
-		lblBackground_1.setVerticalAlignment(SwingConstants.TOP);
-		lblBackground_1.setForeground(Color.BLACK);
-		lblBackground_1.setBounds(0, 0, 555, 365);
-		contentPane.add(lblBackground_1);
 	}
 }
