@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.UserController;
-import model.user;
+import model.User;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -82,7 +82,7 @@ public class Register extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        // Create a user object
-		        user newUser = new user();
+		        User newUser = new User();
 		        
 		        // Set user properties from the text fields
 		        newUser.setName(textField.getText());
@@ -100,7 +100,7 @@ public class Register extends JFrame {
 	                    dispose();
 
 	                    // Open the login window
-	                    login loginFrame = new login();
+	                    LoginMenu loginFrame = new LoginMenu();
 	                    loginFrame.setVisible(true);
 	                } else {
 	                    // Display failure message
@@ -118,8 +118,8 @@ public class Register extends JFrame {
 		JButton btnNewButton_1 = new JButton("Sign In");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				login frame = new login();
-				frame.setVisible(true);
+				LoginMenu loginFrame = new LoginMenu();
+				loginFrame.setVisible(true);
 				dispose();
 			}
 		});
