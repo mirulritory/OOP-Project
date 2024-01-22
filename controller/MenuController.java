@@ -1,17 +1,21 @@
 package controller;
-import model.Menu;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Database.MyDatabase;
+import database.MyDatabase;
+import model.Menu;
 
 public class MenuController {
-
-    private List<Menu> menuItems;
+	
+	private List<Menu> menuItems;
     private Map<Integer, Integer> currentOrder;
 
     public MenuController() throws ClassNotFoundException {
@@ -73,31 +77,23 @@ public class MenuController {
 
     public void placeOrder() throws ClassNotFoundException {
         if (!currentOrder.isEmpty()) {
-        	
             try (Connection connection = MyDatabase.doConnection()) {
-                // Fetch the latest timesOrder from the orderitem table
                 int latestTimesOrder = getLatestTimesOrder(connection);
-
-                // Insert order details into the database (excluding OrderID)
                 String insertQuery = "INSERT INTO orderitem (drinkID, quantity, drinkPrice, timesOrder) VALUES (?, ?, ?, ?)";
                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
                     for (Map.Entry<Integer, Integer> entry : currentOrder.entrySet()) {
                         int drinkID = entry.getKey();
                         int quantity = entry.getValue();
-
-                        // Get the item price from the Menu object
                         Menu menu = getMenuItem(drinkID);
                         double itemPrice = menu.getDrinkPrice();
-
+                        
                         insertStatement.setInt(1, drinkID);
                         insertStatement.setInt(2, quantity);
                         insertStatement.setDouble(3, itemPrice);
                         insertStatement.setInt(4, latestTimesOrder + 1);
-                       // Increment timesOrder
 
                         insertStatement.executeUpdate();
 
-                        // Retrieve the auto-generated OrderID if needed
                         try (ResultSet generatedKeys = insertStatement.getGeneratedKeys()) {
                             if (generatedKeys.next()) {
                                 int generatedOrderID = generatedKeys.getInt(1);
@@ -106,15 +102,13 @@ public class MenuController {
                         }
                     }
                 }
-
-                // Clear the current order after successful insertion
                 currentOrder.clear();
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle or log the exception as needed
             }
         }
     }
+
 
 
     private int getLatestTimesOrder(Connection connection) throws SQLException {
@@ -128,4 +122,63 @@ public class MenuController {
         }
         return latestTimesOrder;
     }
+	
+    public int updateMenu(Menu menu) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE beveragesmenu SET drinkName=?, drinkPrice=? WHERE drinkID=?";
+
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, menu.getDrinkName());
+            preparedStatement.setDouble(2, menu.getDrinkPrice());
+            preparedStatement.setInt(3, menu.getDrinkID());
+
+            return preparedStatement.executeUpdate();
+        }
+    }
+
+    public List<Menu> fetchAllMenus() throws ClassNotFoundException, SQLException {
+        List<Menu> menuList = new ArrayList<>();
+        String sql = "SELECT * FROM beveragesmenu";
+
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Menu menu = new Menu();
+                menu.setDrinkID(resultSet.getInt("drinkID"));
+                menu.setDrinkName(resultSet.getString("drinkName"));
+                menu.setDrinkPrice(resultSet.getDouble("drinkPrice"));
+                // Set other attributes if needed
+
+                menuList.add(menu);
+            }
+        }
+
+        return menuList;
+    }
+    public int deleteMenu(int drinkID) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM beveragesmenu WHERE drinkID=?";
+
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, drinkID);
+            return preparedStatement.executeUpdate();
+        }
+    }
+    public int addMenu(Menu menu) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO beveragesmenu (drinkName, drinkPrice) VALUES (?, ?)";
+
+        try (Connection conn = MyDatabase.doConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, menu.getDrinkName());
+            preparedStatement.setDouble(2, menu.getDrinkPrice());
+
+            return preparedStatement.executeUpdate();
+        }
+    }
+    
 }
