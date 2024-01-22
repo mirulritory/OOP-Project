@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -61,6 +62,7 @@ public class LoginMenu extends JFrame {
         lblloginPage.setHorizontalAlignment(SwingConstants.CENTER);
         lblloginPage.setFont(new Font("Tahoma", Font.BOLD, 30));
         lblloginPage.setBounds(92, 29, 370, 59);
+        lblloginPage.setPreferredSize(new Dimension(370, 59));  // Set preferred size
         contentPane.add(lblloginPage);
 
         // JLabels for Username and Password labels
@@ -160,10 +162,10 @@ public class LoginMenu extends JFrame {
         contentPane.add(lblDontHaveAn);
 
         // JLabel for background (Note: Background image is not provided in the code)
-        JLabel lblBackground = new JLabel("New label");
-        lblBackground.setForeground(new Color(0, 0, 0));
-        lblBackground.setVerticalAlignment(SwingConstants.TOP);
-        lblBackground.setBounds(0, 0, 555, 365);
-        contentPane.add(lblBackground);
+//        JLabel lblBackground = new JLabel("New label");
+//        lblBackground.setForeground(new Color(0, 0, 0));
+//        lblBackground.setVerticalAlignment(SwingConstants.TOP);
+//        lblBackground.setBounds(0, 0, 555, 365);
+//        contentPane.add(lblBackground);
     }
 }
