@@ -1,14 +1,14 @@
 1. User
 - user login ✅
 - user register ✅
-- menu
+- menu ✅
 - payment
-- redeem point
+- redeem point ✅
 
 2. Staff
 - staff register ✅
 - edit item ✅
-- view customer point
+- view customer ✅
 - generate report
 
 3. UML
