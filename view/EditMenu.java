@@ -43,8 +43,9 @@ public class EditMenu extends JFrame {
 
     /**
      * Create the frame.
+     * @throws ClassNotFoundException 
      */
-    public EditMenu() {
+    public EditMenu() throws ClassNotFoundException {
         menuController = new MenuController();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);

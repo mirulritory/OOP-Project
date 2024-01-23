@@ -89,7 +89,13 @@ public class AddMenu extends JFrame {
                     newItem.setDrinkName(textField.getText());
                     newItem.setDrinkPrice(Double.parseDouble(textField_1.getText()));
 
-                    MenuController menuController = new MenuController();
+                    MenuController menuController = null;
+					try {
+						menuController = new MenuController();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                     try {
     		            int success = menuController.addMenu(newItem);
     		            if (success > 0) {
@@ -116,7 +122,13 @@ public class AddMenu extends JFrame {
 		JButton btnBack = new JButton("Back");
 		 btnBack.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		EditMenu frame = new EditMenu();
+	        		EditMenu frame = null;
+					try {
+						frame = new EditMenu();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					frame.setVisible(true);
 	        	}
 	        });
