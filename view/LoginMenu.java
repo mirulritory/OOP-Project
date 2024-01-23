@@ -27,6 +27,7 @@ public class LoginMenu extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private String loggedInUserName;
 
 	/**
 	 * Launch the application.
@@ -104,6 +105,7 @@ public class LoginMenu extends JFrame {
 
 		        UserController userController = new UserController();
 		        try {
+		        	
 		            if (userController.loginUser(username, password)) {
 		                // Successful login, you can open the main application window or perform other actions
 		                // For now, let's just display a message
@@ -116,13 +118,13 @@ public class LoginMenu extends JFrame {
 	                    System.out.println(userController.getAccountType(loggedInUser));
 
 	                    if ("Customer".equals(accountType)) {
-	                        //System.out.println("Hello madafader");
-	                        Register frame = new Register();
+	                        System.out.println("Login as customer");
+	                        MainMenu frame = new MainMenu(username);
 	                        frame.setVisible(true);
 	                        dispose();
 
 	                    } else {
-	                        //System.out.println("Nice try bro");
+	                        System.out.println("Login as staff");
 	                        StaffMenu frame = new StaffMenu();
 	                        frame.setVisible(true);
 	                        dispose();
@@ -153,4 +155,7 @@ public class LoginMenu extends JFrame {
 		contentPane.add(lblBackground);
 		
 	}
+	public String getLoggedInUserName() {
+        return loggedInUserName;
+    }
 }
