@@ -9,7 +9,7 @@
 - staff register ✅
 - edit item ✅
 - view customer ✅
-- generate report
+- generate report ✅
 
 3. UML
 4. Database
