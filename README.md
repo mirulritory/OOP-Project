@@ -2,7 +2,7 @@
 - user login ✅
 - user register ✅
 - menu ✅
-- payment
+- payment ✅
 - redeem point ✅
 
 2. Staff
